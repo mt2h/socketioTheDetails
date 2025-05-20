@@ -50,11 +50,11 @@
     socket.on('messageFromServer',(dataFromServer)=>{
         console.log(dataFromServer)
     })
-    
+
     socket.on('newMessageToClients',(newMessage)=>{
         document.querySelector('#messages').innerHTML += `<li>${newMessage.text}</li>`
     })
-    
+
     document.querySelector('#message-form').addEventListener('submit',(event)=>{
         event.preventDefault();
         const newMessage = document.querySelector('#user-message').value
