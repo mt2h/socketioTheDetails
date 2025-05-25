@@ -42,7 +42,7 @@ document.querySelector('#message-form').addEventListener('submit',e=>{
     nameSpaceSockets[selectedNsId].emit('newMessageToRoom',{
         newMessage,
         date: Date.now(),
-        avatar: 'https://via.placeholder.com/30',
+        avatar: '/images.png',
         userName,
         selectedNsId,
     })
@@ -50,7 +50,7 @@ document.querySelector('#message-form').addEventListener('submit',e=>{
 })
 
 //addListeners job is to manage all listeners added to all namespaces.
-//this prevents listeneres being added multiples times and makes life
+//this prevents listeners being added multiples times and makes life
 //better for us as developers.
 const addListeners = (nsId)=>{
     // nameSpaceSockets[ns.id] = thisNs;
@@ -76,7 +76,7 @@ socket.on('connect',()=>{
     socket.emit('clientConnect');
 })
 
-//lisen for the nsList event from the server which gives us the namespaces
+//listen for the nsList event from the server which gives us the namespaces
 socket.on('nsList',(nsData)=>{
     const lastNs = localStorage.getItem('lastNs');
     console.log(nsData);
@@ -90,7 +90,7 @@ socket.on('nsList',(nsData)=>{
         //If the connection is new, this will be null
         //If the connection has already been established, it will reconnect and remain in its spot
         // let thisNs = nameSpaceSockets[ns.id];
-        
+
         if(!nameSpaceSockets[ns.id]){
             //There is no socket at this nsId. So make a new connection!
             //join this namespace with io()
@@ -106,12 +106,9 @@ socket.on('nsList',(nsData)=>{
             joinNs(element,nsData);
         })
     })
-    
+
 
     //if lastNs is set, grab that element instead of 0.
     joinNs(document.getElementsByClassName('namespace')[0],nsData)
 
 })
-
-
-

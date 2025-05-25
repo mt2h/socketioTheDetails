@@ -57,16 +57,16 @@
         console.log(dataFromServer)
     })
 
-    socket.on('socketCheck',(dataFromServer)=>{
-        console.log(dataFromServer)
-    })
-    
-    
+//    socket.on('socketCheck',(dataFromServer)=>{
+//        console.log(dataFromServer)
+//    })
+//
+//
     socket.on('newMessageToClients',(newMessage)=>{
         document.querySelector('#messages').innerHTML += `<li>${newMessage.text}</li>`
     })
-    
-    adminSocket.on('connect',()=>{
+
+   adminSocket.on('connect',()=>{
         console.log("Successfully joined the admin ns");
     })
 

@@ -70,7 +70,7 @@ namespaces.forEach(namespace=>{
                 i++;
             })
 
-            //join the room! 
+            //join the room!
             // NOTE - roomTitle is coming from the client. Which is NOT safe.
             // Auth to make sure the socket has right to be in that room
             socket.join(roomObj.roomTitle);
@@ -103,4 +103,3 @@ namespaces.forEach(namespace=>{
 
     })
 })
-
