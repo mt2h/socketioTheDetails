@@ -2,8 +2,8 @@
 const io = require('../servers').io;
 //oh... we need express, get app, but only put what we need to inside of our socket stuff
 const app = require('../servers').app;
-//const checkForOrbCollisions = require('./checkCollisions').checkForOrbCollisions;
-//const checkForPlayerCollisions = require('./checkCollisions').checkForPlayerCollisions;
+const checkForOrbCollisions = require('./checkCollisions').checkForOrbCollisions;
+const checkForPlayerCollisions = require('./checkCollisions').checkForPlayerCollisions;
 
 //================CLASSES================
 const Player = require('./classes/Player');
@@ -77,25 +77,25 @@ io.on('connect',(socket)=>{
             player.playerData.locY -= speed * yV;
         }
 
-//        //check for the tocking player to hit orbs
-//        const capturedOrbI = checkForOrbCollisions(player.playerData,player.playerConfig,orbs,settings);
-//        //function returns null if not collision, an index if there is a collision
-//        if(capturedOrbI !== null){ //index could be 0, so check !null
-//            //remove the orb that needs to be replaced (at capturedOrbI)
-//            //add a new Orb
-//            orbs.splice(capturedOrbI,1,new Orb(settings));
-//
-//            //now update the clients with the new orb
-//            const orbData = {
-//                capturedOrbI,
-//                newOrb: orbs[capturedOrbI],
-//            }
-//            //emit to all sockets playing the game, the orbSwitch event so it can update orbs... just the new orb
-//            io.to('game').emit('orbSwitch',orbData);
+        //check for the tocking player to hit orbs
+        const capturedOrbI = checkForOrbCollisions(player.playerData,player.playerConfig,orbs,settings);
+        //function returns null if not collision, an index if there is a collision
+        if(capturedOrbI !== null){ //index could be 0, so check !null
+            //remove the orb that needs to be replaced (at capturedOrbI)
+            //add a new Orb
+            orbs.splice(capturedOrbI,1,new Orb(settings));
+
+            //now update the clients with the new orb
+            const orbData = {
+                capturedOrbI,
+                newOrb: orbs[capturedOrbI],
+            }
+            //emit to all sockets playing the game, the orbSwitch event so it can update orbs... just the new orb
+            io.to('game').emit('orbSwitch',orbData);
 //            //emit to all sockets playing the game, the updateLeaderBoard event because someone just scored
 //            io.to('game').emit('updateLeaderBoard',getLeaderBoard());
-//        }
-//
+        }
+
 //        //player collisions of tocking player
 //        const absorbData = checkForPlayerCollisions(player.playerData,player.playerConfig,players,playersForUsers,socket.id)
 //        if(absorbData){

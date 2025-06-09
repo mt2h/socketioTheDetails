@@ -29,11 +29,11 @@ const init = async()=>{
 //        }
     })
 
-//    socket.on('orbSwitch',orbData=>{
-//        //the server just told us that an orb was absorbed. Replace it in the orbs array!
-//        orbs.splice(orbData.capturedOrbI,1,orbData.newOrb);
-//    })
-//
+    socket.on('orbSwitch',orbData=>{
+        //the server just told us that an orb was absorbed. Replace it in the orbs array!
+        orbs.splice(orbData.capturedOrbI,1,orbData.newOrb);
+    })
+
 //    socket.on('playerAbsorbed', absorbData=>{
 //        document.querySelector('#game-message').innerHTML = `${absorbData.absorbed} was absorbed by ${absorbData.absorbedBy}`
 //        document.querySelector('#game-message').style.opacity = 1;
@@ -41,7 +41,7 @@ const init = async()=>{
 //            document.querySelector('#game-message').style.opacity = 0;
 //        },2000)
 //    })
-//
+
 //    socket.on('updateLeaderBoard',leaderBoardArray=>{
 //        // console.log(leaderBoardArray)
 //        leaderBoardArray.sort((a,b)=>{
