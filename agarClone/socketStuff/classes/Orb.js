@@ -1,4 +1,3 @@
-
 class Orb{
     constructor(settings){
         this.color = this.getRandomColor()

@@ -97,7 +97,7 @@ canvas{
 }
 
 .play-button{
-	font-size: 20px;	
+	font-size: 20px;
 	display: block;
 	margin: 5px auto 5px;
 	width: 90%;
@@ -108,7 +108,7 @@ canvas{
 #join-team-btn, #play-solo-btn, #create-team-btn, #create-play-solo-btn, #add-team-btn{
 	width: 48%;
 	margin: 5px auto 15px;
-	font-size: 18px;	
+	font-size: 18px;
 	display: inline-block;
 	background-color: #00e6e6;
 	color: #FFFFFF;
@@ -133,14 +133,14 @@ canvas{
 .stats-btn{
 	width: 48%;
 	margin: 0 auto 15px;
-	font-size: 18px;	
+	font-size: 18px;
 	display: inline-block;
 	background-color: #e600e6;
 	color: #FFFFFF;
 }
 
 #create-button{
-	font-size: 20px;	
+	font-size: 20px;
 	display: block;
 	margin: 5px auto 5px;
 	width: 90%;
@@ -149,7 +149,7 @@ canvas{
 }
 
 #playerStats-all-btn, #playerStats-player-btn{
-	font-size: 20px;	
+	font-size: 20px;
 	display: block;
 	margin: 5px auto 5px;
 	width: 90%;
@@ -228,4 +228,3 @@ canvas{
 	opacity: 0;
 	transition: all 2s;
 }
-

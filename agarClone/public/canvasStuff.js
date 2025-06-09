@@ -1,12 +1,10 @@
-
-// player.locX = Math.floor(500 * Math.random() + 10); // horizontal axis
-// player.locY = Math.floor(500 * Math.random() + 10); // vertical axis
+ player.locX = Math.floor(500 * Math.random() + 10); // horizontal axis
+ player.locY = Math.floor(500 * Math.random() + 10); // vertical axis
 
 //==========================
 //===========DRAW===========
 //==========================
 const draw = ()=>{
-
     //reset the context traslate back to default
     context.setTransform(1,0,0,1,0,0);
 
@@ -20,26 +18,25 @@ const draw = ()=>{
     //translate moves the cavnas/context to where the player is at
     context.translate(camX,camY)
 
-
     //draw all the players
     players.forEach(p=>{
-        if(!p.playerData){
-            //if the playerData doesn't exist, this is an absobred player and we don't draw
-            return 
-        }
+//        if(!p.playerData){
+//            //if the playerData doesn't exist, this is an absobred player and we don't draw
+//            return
+//        }
         context.beginPath()
         context.fillStyle = p.playerData.color;
         context.arc(p.playerData.locX,p.playerData.locY,p.playerData.radius,0,Math.PI*2) //draw an arc/circle
-        // context.arc(200,200,10,0,Math.PI*2) //draw an arc/circle
+        // context.arc(player.locX,player.locY,10,0,Math.PI*2) //draw an arc/circle
         //arg1 and arg2 are center x and centery of the arc
         //arg3 = radius of the circle
         //arg4 = where to start drawing in radians - 0 = 3:00
-        //arg 5 = where to stop drawing in radians - Pi = 90deg
+        //arg5 = where to stop drawing in radians - Pi = 90deg
         context.fill();
         context.lineWidth = 3; //how wide to draw a line in pixels
         context.strokeStyle = 'rgb(0,255,0)' // draw a green line
         context.stroke() //draw the line (border)
-    }) 
+    })
 
     //draw all the orbs
     orbs.forEach(orb=>{
@@ -51,7 +48,7 @@ const draw = ()=>{
 
     // requestAnimationFrame is like a controlled loop
     // it runs recursively, every paint/frame. If the framerate is 35 fps
-    requestAnimationFrame(draw); 
+    requestAnimationFrame(draw);
 }
 
 canvas.addEventListener('mousemove',(event)=>{
@@ -64,19 +61,19 @@ canvas.addEventListener('mousemove',(event)=>{
     if(angleDeg >= 0 && angleDeg < 90){
         xVector = 1 - (angleDeg/90);
         yVector = -(angleDeg/90);
-        console.log("Mouse is in the lower right quardrant")
+        console.log("Mouse is in the lower right quadrant")
     }else if(angleDeg >= 90 && angleDeg <= 180){
         xVector = -(angleDeg-90)/90;
         yVector = -(1 - ((angleDeg-90)/90));
-        console.log("Mouse is in the lower left quardrant")
+        console.log("Mouse is in the lower left quadrant")
     }else if(angleDeg >= -180 && angleDeg < -90){
         xVector = (angleDeg+90)/90;
         yVector = (1 + ((angleDeg+90)/90));
-        console.log("Mouse is in the top left quardrant")
+        console.log("Mouse is in the top left quadrant")
     }else if(angleDeg < 0 && angleDeg >= -90){
         xVector = (angleDeg+90)/90;
         yVector = (1 - ((angleDeg+90)/90));
-        console.log("Mouse is in the top right quardrant")
+        console.log("Mouse is in the top right quadrant")
     }
 
     player.xVector = xVector ? xVector : .1;

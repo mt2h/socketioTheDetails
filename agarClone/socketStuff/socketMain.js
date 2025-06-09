@@ -2,8 +2,8 @@
 const io = require('../servers').io;
 //oh... we need express, get app, but only put what we need to inside of our socket stuff
 const app = require('../servers').app;
-const checkForOrbCollisions = require('./checkCollisions').checkForOrbCollisions;
-const checkForPlayerCollisions = require('./checkCollisions').checkForPlayerCollisions;
+//const checkForOrbCollisions = require('./checkCollisions').checkForOrbCollisions;
+//const checkForPlayerCollisions = require('./checkCollisions').checkForPlayerCollisions;
 
 //================CLASSES================
 const Player = require('./classes/Player');
@@ -41,9 +41,9 @@ io.on('connect',(socket)=>{
             //tick-tock - issue an event to EVERY connected socket, that is playing the game, 30 times per second
             tickTockInterval = setInterval(()=>{
                 io.to('game').emit('tick',playersForUsers) // send the event to the "game" room
-            },33) //1000/30 = 33.33333, there are 33, 30's in 1000 milliseconds, 1/30th of a second, or 1 of 30fps 
+            },33) //1000/30 = 33.33333, there are 33, 30's in 1000 milliseconds, 1/30th of a second, or 1 of 30fps
         }
-        
+
         socket.join('game'); //add this socket to "game" room
         //event that runs on join that does init game stuff
         // make a playerConfig object - the data specific to this player that only the player needs to know
@@ -54,10 +54,10 @@ io.on('connect',(socket)=>{
         players.push(player); //server use only
         playersForUsers.push({playerData})
         // make a playerData object - the data specific to this player that everyone needs to know
-        // a master player object to house both    
-        ackCallback({orbs,indexInPlayers:playersForUsers.length-1}) //send the orbs array back as an ack function!
+        // a master player object to house both
+//        ackCallback({orbs,indexInPlayers:playersForUsers.length-1}) //send the orbs array back as an ack function!
+        ackCallback(orbs);
     })
-
     //the client sent over a tock!
     socket.on('tock',(data)=>{
         //a tock has come in before the player is set up.
@@ -76,49 +76,49 @@ io.on('connect',(socket)=>{
         //if player can move in the y, move
         if((player.playerData.locY > 5 && yV > 0) || (player.playerData.locY < settings.worldHeight) && (yV < 0)){
             player.playerData.locY -= speed * yV;
-        }  
-
-        //check for the tocking player to hit orbs
-        const capturedOrbI = checkForOrbCollisions(player.playerData,player.playerConfig,orbs,settings);
-        //function returns null if not collision, an index if there is a collision
-        if(capturedOrbI !== null){ //index could be 0, so check !null
-            //remove the orb that needs to be replaced (at capturedOrbI)
-            //add a new Orb
-            orbs.splice(capturedOrbI,1,new Orb(settings));
-
-            //now update the clients with the new orb
-            const orbData = {
-                capturedOrbI,
-                newOrb: orbs[capturedOrbI],
-            }
-            //emit to all sockets playing the game, the orbSwitch event so it can update orbs... just the new orb
-            io.to('game').emit('orbSwitch',orbData);
-            //emit to all sockets playing the game, the updateLeaderBoard event because someone just scored
-            io.to('game').emit('updateLeaderBoard',getLeaderBoard());
         }
 
-        //player collisions of tocking player
-        const absorbData = checkForPlayerCollisions(player.playerData,player.playerConfig,players,playersForUsers,socket.id)
-        if(absorbData){
-            io.to('game').emit('playerAbsorbed',absorbData)
-            io.to('game').emit('updateLeaderBoard',getLeaderBoard());
-        }
+//        //check for the tocking player to hit orbs
+//        const capturedOrbI = checkForOrbCollisions(player.playerData,player.playerConfig,orbs,settings);
+//        //function returns null if not collision, an index if there is a collision
+//        if(capturedOrbI !== null){ //index could be 0, so check !null
+//            //remove the orb that needs to be replaced (at capturedOrbI)
+//            //add a new Orb
+//            orbs.splice(capturedOrbI,1,new Orb(settings));
+//
+//            //now update the clients with the new orb
+//            const orbData = {
+//                capturedOrbI,
+//                newOrb: orbs[capturedOrbI],
+//            }
+//            //emit to all sockets playing the game, the orbSwitch event so it can update orbs... just the new orb
+//            io.to('game').emit('orbSwitch',orbData);
+//            //emit to all sockets playing the game, the updateLeaderBoard event because someone just scored
+//            io.to('game').emit('updateLeaderBoard',getLeaderBoard());
+//        }
+//
+//        //player collisions of tocking player
+//        const absorbData = checkForPlayerCollisions(player.playerData,player.playerConfig,players,playersForUsers,socket.id)
+//        if(absorbData){
+//            io.to('game').emit('playerAbsorbed',absorbData)
+//            io.to('game').emit('updateLeaderBoard',getLeaderBoard());
+//        }
 
     })
 
     socket.on('disconnect',(reason)=>{
-        // console.log(reason)
-        //loop through players and find the player with THIS players socketId
-        //and splice that player out
-        for(let i = 0; i < players.length; i++){
-            if(players[i].socketId === player.socketId){
-                //these are the droids we're looking for
-                //splice the player out of the players AND playersForUsers
-                players.splice(i,1,{})
-                playersForUsers.splice(i,1,{})
-                break;
-            }
-        }
+//        // console.log(reason)
+//        //loop through players and find the player with THIS players socketId
+//        //and splice that player out
+//        for(let i = 0; i < players.length; i++){
+//            if(players[i].socketId === player.socketId){
+//                //these are the droids we're looking for
+//                //splice the player out of the players AND playersForUsers
+//                players.splice(i,1,{})
+//                playersForUsers.splice(i,1,{})
+//                break;
+//            }
+//        }
         //check to see if players is empty. If so, stop "ticking"
         if(players.length === 0){
             clearInterval(tickTockInterval)
@@ -133,16 +133,16 @@ function initGame(){
     }
 }
 
-function getLeaderBoard(){
-    const leaderBoardArray = players.map(curPlayer=>{
-        if(curPlayer.playerData){
-            return{
-                name: curPlayer.playerData.name,
-                score: curPlayer.playerData.score,
-            }
-        }else{
-            return {}
-        }
-    })
-    return leaderBoardArray;
-}
+//function getLeaderBoard(){
+//    const leaderBoardArray = players.map(curPlayer=>{
+//        if(curPlayer.playerData){
+//            return{
+//                name: curPlayer.playerData.name,
+//                score: curPlayer.playerData.score,
+//            }
+//        }else{
+//            return {}
+//        }
+//    })
+//    return leaderBoardArray;
+//}
