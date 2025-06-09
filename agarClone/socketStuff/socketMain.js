@@ -55,8 +55,7 @@ io.on('connect',(socket)=>{
         playersForUsers.push({playerData})
         // make a playerData object - the data specific to this player that everyone needs to know
         // a master player object to house both
-//        ackCallback({orbs,indexInPlayers:playersForUsers.length-1}) //send the orbs array back as an ack function!
-        ackCallback(orbs);
+        ackCallback({orbs,indexInPlayers:playersForUsers.length-1}) //send the orbs array back as an ack function!
     })
     //the client sent over a tock!
     socket.on('tock',(data)=>{

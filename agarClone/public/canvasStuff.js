@@ -1,5 +1,5 @@
- player.locX = Math.floor(500 * Math.random() + 10); // horizontal axis
- player.locY = Math.floor(500 * Math.random() + 10); // vertical axis
+// player.locX = Math.floor(500 * Math.random() + 10); // horizontal axis
+// player.locY = Math.floor(500 * Math.random() + 10); // vertical axis
 
 //==========================
 //===========DRAW===========

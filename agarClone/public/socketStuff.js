@@ -13,9 +13,9 @@ const init = async()=>{
                 yVector: player.yVector ? player.yVector : .1,
             })
         },33)
-        // console.log(initData); //.orbs
-        orbs = initData; //.orbs
-//        player.indexInPlayers = initData.indexInPlayers;
+        // console.log(initData.orbs);
+        orbs = initData.orbs;
+        player.indexInPlayers = initData.indexInPlayers;
         draw(); //draw function is in canvasStuff
     }
 
@@ -24,8 +24,8 @@ const init = async()=>{
         // console.log(players)
         players = playersArray;
 //        if(players[player.indexInPlayers].playerData){
-//            player.locX = players[player.indexInPlayers].playerData.locX
-//            player.locY = players[player.indexInPlayers].playerData.locY
+            player.locX = players[player.indexInPlayers].playerData.locX
+            player.locY = players[player.indexInPlayers].playerData.locY
 //        }
     })
 
