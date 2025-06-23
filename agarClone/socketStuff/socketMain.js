@@ -41,9 +41,9 @@ io.on('connect',(socket)=>{
             //tick-tock - issue an event to EVERY connected socket, that is playing the game, 30 times per second
             tickTockInterval = setInterval(()=>{
                 io.to('game').emit('tick',playersForUsers) // send the event to the "game" room
-            },33) //1000/30 = 33.33333, there are 33, 30's in 1000 milliseconds, 1/30th of a second, or 1 of 30fps 
+            },33) //1000/30 = 33.33333, there are 33, 30's in 1000 milliseconds, 1/30th of a second, or 1 of 30fps
         }
-        
+
         socket.join('game'); //add this socket to "game" room
         //event that runs on join that does init game stuff
         // make a playerConfig object - the data specific to this player that only the player needs to know
@@ -54,10 +54,9 @@ io.on('connect',(socket)=>{
         players.push(player); //server use only
         playersForUsers.push({playerData})
         // make a playerData object - the data specific to this player that everyone needs to know
-        // a master player object to house both    
+        // a master player object to house both
         ackCallback({orbs,indexInPlayers:playersForUsers.length-1}) //send the orbs array back as an ack function!
     })
-
     //the client sent over a tock!
     socket.on('tock',(data)=>{
         //a tock has come in before the player is set up.
@@ -76,7 +75,7 @@ io.on('connect',(socket)=>{
         //if player can move in the y, move
         if((player.playerData.locY > 5 && yV > 0) || (player.playerData.locY < settings.worldHeight) && (yV < 0)){
             player.playerData.locY -= speed * yV;
-        }  
+        }
 
         //check for the tocking player to hit orbs
         const capturedOrbI = checkForOrbCollisions(player.playerData,player.playerConfig,orbs,settings);

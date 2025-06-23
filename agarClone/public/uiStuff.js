@@ -1,4 +1,3 @@
-
 //set height and width of canvas = window
 let wHeight = window.innerHeight;
 let wWidth = window.innerWidth;
@@ -17,7 +16,6 @@ let players = []; //this is an array of all players
 const loginModal = new bootstrap.Modal(document.querySelector('#loginModal'));
 const spawnModal = new bootstrap.Modal(document.querySelector('#spawnModal'));
 
-
 window.addEventListener('load',()=>{
     //on page load, open the login modal
     loginModal.show();
@@ -25,12 +23,12 @@ window.addEventListener('load',()=>{
 
 document.querySelector('.name-form').addEventListener('submit',(e)=>{
     e.preventDefault();
-    // console.log("SUbmitted!")
+    // console.log("Submitted!")
     player.name = document.querySelector('#name-input').value;
     document.querySelector('.player-name').innerHTML = player.name
     loginModal.hide();
     spawnModal.show();
-    console.log(player);
+    // console.log(player);
 })
 
 document.querySelector('.start-game').addEventListener('click',(e)=>{
@@ -39,5 +37,5 @@ document.querySelector('.start-game').addEventListener('click',(e)=>{
     //show the hiddenOnStart elements
     const elArray = Array.from(document.querySelectorAll('.hiddenOnStart'))
     elArray.forEach(el=>el.removeAttribute('hidden'))
-    init(); //init is iniside of socketStuff.js
+    init(); //init is inside of socketStuff.js
 })

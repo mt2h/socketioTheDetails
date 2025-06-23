@@ -5,7 +5,7 @@ const init = async()=>{
         //init is called inside of start-game click listener
         const initData = await socket.emitWithAck('init',{
             playerName: player.name
-        }) 
+        })
         //our await has resolved, so start 'tocking'
         setInterval(async()=>{
             socket.emit('tock',{
@@ -14,8 +14,8 @@ const init = async()=>{
             })
         },33)
         // console.log(initData.orbs);
-        orbs = initData.orbs; 
-        player.indexInPlayers = initData.indexInPlayers;   
+        orbs = initData.orbs;
+        player.indexInPlayers = initData.indexInPlayers;
         draw(); //draw function is in canvasStuff
     }
 
@@ -56,6 +56,6 @@ const init = async()=>{
                 <li class="leaderboard-player">${p.name} - ${p.score}</li>
             `
         })
-        const el = leaderBoardArray.find(u=>u.name === player.name)
-        document.querySelector('.player-score').innerHTML = el.score
+//        const el = leaderBoardArray.find(u=>u.name === player.name)
+//        document.querySelector('.player-score').innerHTML = el.score
 })
