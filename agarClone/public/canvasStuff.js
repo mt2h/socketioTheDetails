@@ -5,7 +5,7 @@
 //===========DRAW===========
 //==========================
 const draw = ()=>{
-    //reset the context traslate back to default
+    //reset the context translate back to default
     context.setTransform(1,0,0,1,0,0);
 
     //clearRect clears out the canvas, so we can draw on a clean canvas next frame/draw()
@@ -15,20 +15,20 @@ const draw = ()=>{
     const camX = -player.locX + canvas.width/2
     const camY = -player.locY + canvas.height/2
 
-    //translate moves the cavnas/context to where the player is at
+    //translate moves the canvas/context to where the player is at
     context.translate(camX,camY)
 
     //draw all the players
     players.forEach(p=>{
-//        if(!p.playerData){
-//            //if the playerData doesn't exist, this is an absobred player and we don't draw
-//            return
-//        }
+        if(!p.playerData){
+            //if the playerData doesn't exist, this is an absorbed player and we don't draw
+            return
+        }
         context.beginPath()
         context.fillStyle = p.playerData.color;
         context.arc(p.playerData.locX,p.playerData.locY,p.playerData.radius,0,Math.PI*2) //draw an arc/circle
         // context.arc(player.locX,player.locY,10,0,Math.PI*2) //draw an arc/circle
-        //arg1 and arg2 are center x and centery of the arc
+        //arg1 and arg2 are center x and center y of the arc
         //arg3 = radius of the circle
         //arg4 = where to start drawing in radians - 0 = 3:00
         //arg5 = where to stop drawing in radians - Pi = 90deg
