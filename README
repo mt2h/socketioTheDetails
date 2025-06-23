@@ -3,3 +3,14 @@
 ```bash
 npm install -g nodemon
 ```
+
+```bash
+npx create-react-app react-client
+```
+
+```bash
+nvm install 14
+npm install -g yarn@1.22.19
+yarn install
+npm start
+```
