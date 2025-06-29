@@ -3,6 +3,7 @@
 // Req:
 // - socket.io-client
 
+const { get } = require('http');
 const os = require('os'); //native to node!
 //const io = require('socket.io-client');
 //const options = {
@@ -63,27 +64,27 @@ const cpuAverage = ()=>{
     }
 }
 
-////Because the times property on cpus is time since boot, we will get
-////now times, and 100ms from "now" times. Compare them, that will give
-////us the current load
-//const getCpuLoad = ()=> new Promise((resolve, reject)=>{
-//    //call cpuAverage for "now"
-//    const start = cpuAverage(); //"now" value of load
-//    setTimeout(()=>{
-//        //call cpuAverage for "end" 100ms after "now"
-//        const end = cpuAverage(); //"end" value of load
-//        const idleDiff = end.idle - start.idle;
-//        const totalDiff = end.total - start.total
-//        // console.log(idleDiff,totalDiff)
-//        // calculate the % of the used cpu
-//        const percentOfCpu = 100 - Math.floor(100 * idleDiff / totalDiff); //%
-//        resolve(percentOfCpu)
-//    },100)
-//})
+//Because the times property on cpus is time since boot, we will get
+//now times, and 100ms from "now" times. Compare them, that will give
+//us the current load
+const getCpuLoad = ()=> new Promise((resolve, reject)=>{
+    //call cpuAverage for "now"
+    const start = cpuAverage(); //"now" value of load
+    setTimeout(()=>{
+        //call cpuAverage for "end" 100ms after "now"
+        const end = cpuAverage(); //"end" value of load
+        const idleDiff = end.idle - start.idle;
+        const totalDiff = end.total - start.total
+        // console.log(idleDiff,totalDiff)
+        // calculate the % of the used cpu
+        const percentOfCpu = 100 - Math.floor(100 * idleDiff / totalDiff); //%
+        resolve(percentOfCpu)
+    },100)
+})
 
-//const performanceLoadData = ()=> new Promise(async(resolve, reject)=>{
+const performanceLoadData = ()=> new Promise(async(resolve, reject)=>{
     // What do we need to know FROM NODE about performance?
-//    // - CPU load (current)
+    // - CPU load (current)
     const cpus = os.cpus(); //all cpus as an array
     // - Memory Useage
     // - total
@@ -109,20 +110,20 @@ const cpuAverage = ()=>{
     const cpuSpeed = cpus[0].speed;
     // console.log(cpus)
     // console.log(cpuType,numCores,cpuSpeed);
-//    const cpuLoad = await getCpuLoad();
-//    resolve({
-//        freeMem,
-//        totalMem,
-//        usedMem,
-//        memUseage,
-//        osType,
-//        upTime,
-//        cpuType,
-//        numCores,
-//        cpuSpeed,
-//        cpuLoad,
-//    })
-//})
+    const cpuLoad = await getCpuLoad();
+    resolve({
+        freeMem,
+        totalMem,
+        usedMem,
+        memUseage,
+        osType,
+        upTime,
+        cpuType,
+        numCores,
+        cpuSpeed,
+        cpuLoad,
+    })
+})
 
 
 //// const run = async()=>{
