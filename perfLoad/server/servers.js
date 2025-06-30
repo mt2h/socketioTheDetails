@@ -1,14 +1,14 @@
-//// Socket.io server that will service both node
-//// and react clients
-//// Req:
-//// - socket.io
-//// - @socket.io/cluster-adapter
-//// - @socket.io/sticky
-//
-//// entrypoint for our cluster which will make workers
-//// and the workers will do the Socket.io handling
-////See https://github.com/elad/node-cluster-socket.io
-//
+// Socket.io server that will service both node
+// and react clients
+// Req:
+// - socket.io
+// - @socket.io/cluster-adapter
+// - @socket.io/sticky
+
+// entrypoint for our cluster which will make workers
+// and the workers will do the Socket.io handling
+//See https://github.com/elad/node-cluster-socket.io
+
 //const cluster = require("cluster"); //makes it so we can use multiple threads
 //const http = require("http"); //if we need Express, we will implement it a different way
 //const { Server } = require("socket.io");
