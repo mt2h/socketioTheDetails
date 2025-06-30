@@ -125,9 +125,8 @@ const performanceLoadData = ()=> new Promise(async(resolve, reject)=>{
     })
 })
 
-
-//// const run = async()=>{
-////     const data = await performanceLoadData();
-////     console.log(data);
-//// }
-//// run()
+// const run = async()=>{
+//     const data = await performanceLoadData();
+//     console.log(data);
+// }
+// run()
